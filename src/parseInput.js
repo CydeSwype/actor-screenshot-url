@@ -30,6 +30,11 @@ allowed values: "${waitUntilOptions.join('", "')}"`);
     if (input.viewportWidth > 3840) crash(`Viewport width "${input.viewportWidth}" is too large, maximum is 3840px.`);
     parsedInput.width = input.viewportWidth;
 
+    // Process timeout
+    if (!_.isNumber(input.timeout)) crash(`Timeout "${input.timeout}" is not a number.`);
+    if (input.timeout < 100) crash(`Timeout "${input.timeout}" is too small, it must be atleast 5000.`);
+    parsedInput.timeout = input.timeout;
+
     // Process delay
     if (!_.isNumber(input.delay)) crash(`Delay "${input.delay}" is not a number.`);
     if (input.delay < 0) crash(`Delay "${input.delay}" is negative.`);
